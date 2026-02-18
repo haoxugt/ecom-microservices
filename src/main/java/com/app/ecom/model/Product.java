@@ -22,7 +22,7 @@ public class Product {
     private String description;
     private BigDecimal price;
     private Integer stockQuantity;
-    private String Category;
+    private String category;
     private String imageUrl;
     private Boolean activate = true;
 
