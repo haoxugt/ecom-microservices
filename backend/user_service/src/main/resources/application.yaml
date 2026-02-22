@@ -2,14 +2,24 @@ spring:
   application:
     name: user_service
   datasource:
-    url: jdbc:h2:mem:test
-  h2:
-    console:
-      enabled: true
+    url: jdbc:postgresql://localhost:5432/ecom-user-db
+    username: haoxugt
+    password: password
   jpa:
+    database: POSTGRESQL
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
+#  datasource:
+#    url: jdbc:h2:mem:test
+#  h2:
+#    console:
+#      enabled: true
+#  jpa:
+#    show-sql: true
+#    hibernate:
+#      ddl-auto: create
 
 server:
   port: 8082
