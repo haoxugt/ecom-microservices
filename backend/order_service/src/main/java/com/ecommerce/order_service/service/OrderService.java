@@ -4,7 +4,6 @@ import com.ecommerce.order_service.dto.OrderItemDTO;
 import com.ecommerce.order_service.dto.OrderResponse;
 import com.ecommerce.order_service.model.*;
 import com.ecommerce.order_service.repository.OrderRepository;
-//import com.ecommerce.order_service.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +15,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class OrderService {
     private final CartService cartService;
-//    private final UserRepository userRepository;
     private final OrderRepository orderRepository;
 
     public Optional<OrderResponse> createOrder(Long userId) {

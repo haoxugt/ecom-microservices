@@ -2,11 +2,7 @@ package com.ecommerce.order_service.service;
 
 import com.ecommerce.order_service.dto.CartItemRequest;
 import com.ecommerce.order_service.model.CartItem;
-//import com.ecommerce.order_service.model.Product;
-//import com.ecommerce.order_service.model.User;
 import com.ecommerce.order_service.repository.CartItemRepository;
-//import com.ecommerce.order_service.repository.ProductRepository;
-//import com.ecommerce.order_service.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,9 +15,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Transactional
 public class CartService {
-//    private final ProductRepository productRepository;
     private final CartItemRepository cartItemRepository;
-//    private final UserRepository userRepository;
 
     public boolean addToCard(Long userId, CartItemRequest request) {
 //        // Look for product
@@ -45,11 +39,12 @@ public class CartService {
 //        User user = userOpt.get();
 
         // Check if the product is already in the cart
-        CartItem existingCartItem = cartItemRepository.findByUserIdAndProductId(userId, request.getProductId());
-        if (existingCartItem != null) {
+        Optional<CartItem> existingCartItemOpt = cartItemRepository.findByUserIdAndProductId(userId, request.getProductId());
+        if (existingCartItemOpt.isPresent()) {
             // Update the quantity
+            CartItem existingCartItem = existingCartItemOpt.get();
             existingCartItem.setQuantity(existingCartItem.getQuantity() + request.getQuantity());
-            existingCartItem.setPrice(BigDecimal.valueOf(1000).multiply(BigDecimal.valueOf(existingCartItem.getQuantity())));
+            existingCartItem.setPrice(BigDecimal.valueOf(1000));
             cartItemRepository.save(existingCartItem);
         } else {
             // Create new cart item
@@ -59,9 +54,7 @@ public class CartService {
             cartItem.setQuantity(request.getQuantity());
             cartItem.setPrice(BigDecimal.valueOf(1000));
             cartItemRepository.save(cartItem);
-
         }
-
         return true;
     }
 
@@ -77,21 +70,20 @@ public class CartService {
 //            return true;
 //        }
 //        return false;
-        cartItemRepository.deleteByUserIdAndProductId(userId, productId);
-        return true;
+        Optional<CartItem> cartItemOpt = cartItemRepository.findByUserIdAndProductId(userId, productId);
 
+        if (cartItemOpt.isPresent()) {
+            cartItemRepository.delete(cartItemOpt.get());
+            return true;
+        }
+        return false;
     }
 
     public List<CartItem> getCart(Long userId) {
-//        return userRepository.findById(Long.valueOf(userId))
-//                .map(cartItemRepository::findByUser)
-//                .orElseGet(List::of);
         return cartItemRepository.findByUserId(userId);
     }
 
     public void clearCart(Long userId) {
-//        userRepository.findById(Long.valueOf(userId))
-//                .ifPresent(cartItemRepository::deleteByUser);
         cartItemRepository.deleteByUserId(userId);
 
     }
