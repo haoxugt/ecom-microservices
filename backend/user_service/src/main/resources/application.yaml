@@ -1,16 +1,25 @@
 spring:
   application:
     name: user_service
-  datasource:
-    url: jdbc:postgresql://localhost:5432/ecom-user-db
-    username: haoxugt
-    password: password
-  jpa:
-    database: POSTGRESQL
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
-    show-sql: true
-    hibernate:
-      ddl-auto: update
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/userdb
+      database: userdb
+
+
+## postgresql configuration
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/ecom-user-db
+#    username: haoxugt
+#    password: password
+#  jpa:
+#    database: POSTGRESQL
+#    database-platform: org.hibernate.dialect.PostgreSQLDialect
+#    show-sql: true
+#    hibernate:
+#      ddl-auto: update
+
+## h2 database configuration
 #  datasource:
 #    url: jdbc:h2:mem:test
 #  h2:
