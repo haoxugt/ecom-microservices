@@ -3,7 +3,7 @@ spring:
     name: user_service
   data:
     mongodb:
-      uri: mongodb://localhost:27017/userdb
+      uri: mongodb+srv://haoxugt_db_user:uon86ICxxfdwE8z7@user-data.k34ccrb.mongodb.net/?appName=user-data
       database: userdb
 
 

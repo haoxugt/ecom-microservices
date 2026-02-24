@@ -2,9 +2,10 @@ spring:
   application:
     name: product_service
   datasource:
-    url: jdbc:postgresql://localhost:5432/ecom-product-db
-    username: haoxugt
-    password: password
+#    url: jdbc:postgresql://localhost:5432/ecom-product-db
+    url: jdbc:postgresql://ep-shiny-glitter-ak81cldu-pooler.c-3.us-west-2.aws.neon.tech/productdb?sslmode=require&channel_binding=require
+    username: neondb_owner
+    password: npg_igL4fZC2AQmX
   jpa:
     database: POSTGRESQL
     database-platform: org.hibernate.dialect.PostgreSQLDialect
