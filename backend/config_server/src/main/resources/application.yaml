@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: config_server
+  profiles:
+    active: native
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: file:/Users/haoxu/IdeaProjects/Masterclass/ecom-microservices/backend/config_server/src/main/resources/config
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+server:
+  port: 8888
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

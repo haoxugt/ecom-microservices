@@ -3,7 +3,10 @@ package com.ecommerce.user_service.controller;
 import com.ecommerce.user_service.dto.UserRequest;
 import com.ecommerce.user_service.dto.UserResponse;
 import com.ecommerce.user_service.service.UserService;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,9 +16,22 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/users")
+@RefreshScope
 public class UserController {
 
     private final UserService userService;
+
+
+//    @Value("${build.id:in Controller}")
+//    private String buildId;
+//
+//    @Value("${build.version:inController}")
+//    private String buildVersion;
+//
+//    @Value("${build.name:inController}")
+//    private String buildName;
+
+    private final BuildInfo buildInfo;
 
     @GetMapping
     public ResponseEntity<List<UserResponse>> getAllUsers() {
@@ -44,5 +60,13 @@ public class UserController {
             return ResponseEntity.ok("User updated successfully");
         return ResponseEntity.notFound().build();
 
+    }
+
+
+    @GetMapping("/build-info")
+    public String getBuildInfo() {
+        return "Build ID: " + buildInfo.getId() + " \r\n "
+                + "Version: " + buildInfo.getVersion() + " \n "
+                + "Name: " + buildInfo.getName();
     }
 }
